@@ -56,19 +56,19 @@
         <div class="svc-card">
           <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
             <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Nomor HP</div>
-            <div style="font-size: 14px; font-weight: 600; color: var(--text);">082325565813</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);" id="user-phone">082325565813</div>
           </div>
         </div>
         <div class="svc-card">
           <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
             <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Email</div>
-            <div style="font-size: 14px; font-weight: 600; color: var(--text);">budi@email.com</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);" id="user-email">budi@email.com</div>
           </div>
         </div>
         <div class="svc-card">
           <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
             <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Alamat</div>
-            <div style="font-size: 14px; font-weight: 600; color: var(--text);">Jl. Merdeka No. 5, Sukajaya</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);" id="user-address">Jl. Merdeka No. 5, Sukajaya</div>
           </div>
         </div>
       </div>
@@ -229,6 +229,37 @@
     </div>
   </div>
 
+  <!-- ===== EDIT PROFIL MODAL ===== -->
+  <div id="edit-profile-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1100; align-items: center; justify-content: center;">
+    <div style="background: #fff; border-radius: var(--radius-lg); width: 90%; max-width: 420px; max-height: 90vh; overflow-y: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.15); animation: fadeIn 0.2s ease;">
+      <div style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; font-size: 16px; font-weight: 600;">✏️ Edit Profil</h3>
+        <button onclick="closeEditProfile()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted);">✕</button>
+      </div>
+      <div style="padding: 20px;">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Nama Lengkap</label>
+          <input type="text" id="edit-name" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); font-family: inherit; font-size: 14px; box-sizing: border-box;" placeholder="Masukkan nama lengkap">
+        </div>
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Nomor HP</label>
+          <input type="tel" id="edit-phone" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); font-family: inherit; font-size: 14px; box-sizing: border-box;" placeholder="Masukkan nomor HP">
+        </div>
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Email</label>
+          <input type="email" id="edit-email" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); font-family: inherit; font-size: 14px; box-sizing: border-box;" placeholder="Masukkan email">
+        </div>
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Alamat</label>
+          <textarea id="edit-address" rows="3" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); font-family: inherit; font-size: 14px; box-sizing: border-box; resize: vertical;" placeholder="Masukkan alamat lengkap"></textarea>
+        </div>
+        <button onclick="saveProfile()" style="width: 100%; background: var(--amber); color: #fff; border: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 12px; border-radius: var(--radius-md); transition: background 0.2s;">
+          💾 Simpan Perubahan
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== TOAST ===== -->
   <div class="toast" id="toast"></div>
 
@@ -338,17 +369,63 @@
     `;
     document.head.appendChild(style);
 
+    // ===== EDIT PROFIL FUNCTIONS =====
     function editProfile() {
-      // Ambil nama dari localStorage atau gunakan nama default
-      const savedName = localStorage.getItem('userName') || 'Budi Santoso';
-      const newName = prompt('Masukkan nama Anda:', savedName);
-      if (newName && newName.trim() !== '') {
-        localStorage.setItem('userName', newName.trim());
-        document.getElementById('profile-name').textContent = newName.trim();
-        document.getElementById('nama-lengkap').textContent = newName.trim();
-        showToast('✅ Profil berhasil diperbarui!');
-      }
+      // Load current values from localStorage or defaults
+      document.getElementById('edit-name').value = localStorage.getItem('userName') || 'Budi Santoso';
+      document.getElementById('edit-phone').value = localStorage.getItem('userPhone') || '082325565813';
+      document.getElementById('edit-email').value = localStorage.getItem('userEmail') || 'budi@email.com';
+      document.getElementById('edit-address').value = localStorage.getItem('userAddress') || 'Jl. Merdeka No. 5, Sukajaya';
+      
+      const modal = document.getElementById('edit-profile-modal');
+      modal.style.display = 'flex';
     }
+
+    function closeEditProfile() {
+      const modal = document.getElementById('edit-profile-modal');
+      modal.style.display = 'none';
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('edit-name').value.trim();
+      const phone = document.getElementById('edit-phone').value.trim();
+      const email = document.getElementById('edit-email').value.trim();
+      const address = document.getElementById('edit-address').value.trim();
+
+      if (!name) {
+        showToast('❌ Nama lengkap wajib diisi');
+        return;
+      }
+
+      // Save to localStorage
+      localStorage.setItem('userName', name);
+      localStorage.setItem('userPhone', phone);
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userAddress', address);
+
+      // Update display
+      const nameEl = document.getElementById('profile-name');
+      const namaEl = document.getElementById('nama-lengkap');
+      const phoneEl = document.getElementById('user-phone');
+      const emailEl = document.getElementById('user-email');
+      const addressEl = document.getElementById('user-address');
+
+      if (nameEl) nameEl.textContent = name;
+      if (namaEl) namaEl.textContent = name;
+      if (phoneEl) phoneEl.textContent = phone || '-';
+      if (emailEl) emailEl.textContent = email || '-';
+      if (addressEl) addressEl.textContent = address || '-';
+
+      closeEditProfile();
+      showToast('✅ Profil berhasil diperbarui!');
+    }
+
+    // Close edit modal when clicking outside
+    document.getElementById('edit-profile-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'edit-profile-modal') {
+        closeEditProfile();
+      }
+    });
 
     function logout() {
       if (confirm('Apakah Anda yakin ingin logout?')) {
@@ -360,16 +437,33 @@
       }
     }
 
-    // Load user name from localStorage on page load
+    // Load user profile from localStorage on page load
     document.addEventListener('DOMContentLoaded', function() {
       const savedName = localStorage.getItem('userName');
+      const savedPhone = localStorage.getItem('userPhone');
+      const savedEmail = localStorage.getItem('userEmail');
+      const savedAddress = localStorage.getItem('userAddress');
+
       if (savedName) {
         const nameEl = document.getElementById('profile-name');
         const namaEl = document.getElementById('nama-lengkap');
         if (nameEl) nameEl.textContent = savedName;
         if (namaEl) namaEl.textContent = savedName;
       }
+      if (savedPhone) {
+        const phoneEl = document.getElementById('user-phone');
+        if (phoneEl) phoneEl.textContent = savedPhone;
+      }
+      if (savedEmail) {
+        const emailEl = document.getElementById('user-email');
+        if (emailEl) emailEl.textContent = savedEmail;
+      }
+      if (savedAddress) {
+        const addressEl = document.getElementById('user-address');
+        if (addressEl) addressEl.textContent = savedAddress;
+      }
     });
   </script>
 </body>
 </html>
+
