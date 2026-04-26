@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🏪 Toko Berkah Jaya - Website E-Commerce
 
 Sebuah website modern untuk toko online yang menjual sembako, gas LPG, dan air isi ulang. Website ini dibangun dengan HTML, CSS, dan JavaScript pure (tanpa framework).
@@ -197,3 +198,6 @@ Edit di halaman masing-masing (katalog.html, index.html):
 ---
 
 Dibuat dengan ❤️ untuk memudahkan bisnis toko online Anda.
+=======
+# toko-sembako
+>>>>>>> da8b563382d307bb9de687ed9b05c12161f19c12

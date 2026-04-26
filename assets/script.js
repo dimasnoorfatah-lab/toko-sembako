@@ -39,7 +39,7 @@ function showToast(msg) {
 
 // ===== WHATSAPP FUNCTION =====
 function openWhatsApp() {
-  const no  = '6281200000000';
+  const no  = '082325565813';
   const msg = encodeURIComponent('Halo Toko Berkah Jaya! Saya ingin memesan produk. Bisa bantu saya?');
   window.open('https://wa.me/' + no + '?text=' + msg, '_blank');
 }
