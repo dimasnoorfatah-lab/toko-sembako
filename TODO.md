@@ -1,18 +1,15 @@
-# TODO: Notifikasi di Semua Halaman
+# TODO: Perbaiki Nomor HP & WA Link
 
 ## Task
-Pada notifikasi dapat di akses pada setiap beranda katalog keranjang pesanan dan profil
+1. Ubah semua nomor HP menjadi `082325565813`
+2. Perbaiki link WA di bagian keranjang agar dapat mengirim ke nomor yang ditulis (`082325565813` → format WA: `6282325565813`)
+3. Perbaiki format WA link di `assets/script.js` agar menggunakan `+62` bukan `+82`
 
 ## Plan
-1. [x] Update `assets/script.js` — tambahkan fungsi notifikasi global + localStorage
-2. [x] Update `assets/style.css` — tambahkan keyframes animasi modal
-3. [x] Update `index.html` — ganti onclick tombol lonceng + tambah modal HTML
-4. [x] Update `pages/katalog.html` — ganti onclick tombol lonceng + tambah modal HTML
-5. [x] Update `pages/keranjang.html` — ganti onclick tombol lonceng + tambah modal HTML
-6. [x] Update `pages/pesanan.html` — ganti onclick tombol lonceng + tambah modal HTML
-7. [x] Update `pages/profil.html` — hapus duplikasi JS/style, gunakan global
-8. [x] Verifikasi semua halaman
+1. [x] Update `pages/keranjang.html` — perbaiki `checkoutViaWhatsApp()`
+2. [x] Update `assets/script.js` — perbaiki `openWhatsApp()`
+3. [x] Verifikasi semua halaman
 
 ## Status
-✅ Selesai — Notifikasi dapat diakses dari Beranda, Katalog, Keranjang, Pesanan, dan Profil.
+✅ Selesai — Semua nomor HP telah diubah ke `082325565813`, dan link WhatsApp sekarang menggunakan format internasional yang benar `6282325565813`.
 

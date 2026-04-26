@@ -216,8 +216,9 @@
         `Mohon konfirmasi ketersediaan & waktu pengiriman. Terima kasih!`
       );
       
-      const no = '6282325565813';
-      window.open('https://wa.me/6282325565813' + no + '?text=' + msg, '_blank');
+      const no = '082325565813';
+      const waNo = '62' + no.substring(1); // +6282325565813
+      window.open('https://wa.me/' + waNo + '?text=' + msg, '_blank');
     }
 
     document.addEventListener('DOMContentLoaded', () => {

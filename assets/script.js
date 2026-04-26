@@ -40,8 +40,9 @@ function showToast(msg) {
 // ===== WHATSAPP FUNCTION =====
 function openWhatsApp() {
   const no  = '082325565813';
+  const waNo = '62' + no.substring(1); // +6282325565813
   const msg = encodeURIComponent('Halo Toko Berkah Jaya! Saya ingin memesan produk. Bisa bantu saya?');
-  window.open('https://wa.me/' + no + '?text=' + msg, '_blank');
+  window.open('https://wa.me/' + waNo + '?text=' + msg, '_blank');
 }
 
 // ===== NAVIGATION =====
