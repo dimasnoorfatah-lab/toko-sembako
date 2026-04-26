@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Saya – Toko Berkah Jaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">🏪</div>
+      <div class="logo-text">
+        <h1>Toko Berkah Jaya</h1>
+        <span>● Buka sekarang · 06.00 – 21.00</span>
+      </div>
+    </div>
+    <div class="header-icons">
+      <button onclick="showToast('Notifikasi dibuka')">
+        🔔<span class="badge">3</span>
+      </button>
+      <button class="cart-nav" onclick="window.location.href='keranjang.html'">
+        🛒<span class="badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="section">
+    <!-- ===== PROFIL HEADER ===== -->
+    <div style="background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%); border-radius: var(--radius-lg); padding: 20px; text-align: center; margin-bottom: 22px;">
+      <div style="width: 60px; height: 60px; background: #fff; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: var(--shadow-sm);">👤</div>
+      <h2 style="color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 4px;">Budi Santoso</h2>
+      <p style="color: rgba(255,255,255,0.88); font-size: 12px;">Pelanggan sejak 2023</p>
+      <div style="margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.9);">
+        <span style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; display: inline-block; margin: 0 4px;">⭐ 4.8 Rating</span>
+        <span style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; display: inline-block; margin: 0 4px;">📦 12 Pesanan</span>
+      </div>
+    </div>
+
+    <!-- ===== INFORMASI AKUN ===== -->
+    <div style="margin-bottom: 22px;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px;">📋 Informasi Akun</h3>
+      <div class="svc-grid">
+        <div class="svc-card">
+          <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Nama Lengkap</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);">Budi Santoso</div>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Nomor HP</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);">0812-XXXX-XXXX</div>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Email</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);">budi@email.com</div>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Alamat</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);">Jl. Merdeka No. 5, Sukajaya</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== EDIT PROFIL BUTTON ===== -->
+    <button onclick="editProfile()" style="width: 100%; background: var(--amber); color: #fff; border: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 12px; border-radius: var(--radius-md); margin-bottom: 22px; transition: background 0.2s;">
+      ✏️ Edit Profil
+    </button>
+
+    <div class="divider"></div>
+
+    <!-- ===== RIWAYAT TRANSAKSI ===== -->
+    <div style="margin: 22px 0;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px;">💳 Riwayat Transaksi</h3>
+      <div class="svc-card" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px;">Beras Premium 5kg + Minyak Goreng</div>
+            <div style="font-size: 11px; color: var(--text-muted);">24 Apr 2025</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--amber);">Rp 102.000</div>
+            <div style="font-size: 10px; color: var(--green-light); font-weight: 600;">Selesai</div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-card" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px;">Gas LPG 3kg</div>
+            <div style="font-size: 11px; color: var(--text-muted);">20 Apr 2025</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--amber);">Rp 21.000</div>
+            <div style="font-size: 10px; color: var(--green-light); font-weight: 600;">Selesai</div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px;">Air Galon Isi Ulang 5x</div>
+            <div style="font-size: 11px; color: var(--text-muted);">18 Apr 2025</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--amber);">Rp 30.000</div>
+            <div style="font-size: 10px; color: var(--green-light); font-weight: 600;">Selesai</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===== PREFERENSI ===== -->
+    <div style="margin: 22px 0;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px;">⚙️ Preferensi</h3>
+      <div class="svc-card" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--text);">Notifikasi Push</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Aktif</div>
+          </div>
+          <input type="checkbox" checked style="width: 20px; height: 20px; cursor: pointer;">
+        </div>
+      </div>
+      <div class="svc-card" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--text);">Langganan Mingguan</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Aktif</div>
+          </div>
+          <input type="checkbox" checked style="width: 20px; height: 20px; cursor: pointer;">
+        </div>
+      </div>
+      <div class="svc-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13px; font-weight: 600; color: var(--text);">Email Marketing</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Non-aktif</div>
+          </div>
+          <input type="checkbox" style="width: 20px; height: 20px; cursor: pointer;">
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===== BANTUAN & KONTAK ===== -->
+    <div style="margin: 22px 0 0 0;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px;">💬 Bantuan & Kontak</h3>
+      <button class="wa-btn" onclick="openWhatsApp()" style="width: 100%;">
+        💬 Chat WhatsApp
+      </button>
+      <button onclick="showToast('Email terbuka')" style="width: 100%; background: var(--blue-pale); color: #185FA5; border: 1px solid rgba(24,95,165,0.3); cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 12px; border-radius: var(--radius-md); margin-top: 10px; transition: background 0.2s;">
+        ✉️ Hubungi Email
+      </button>
+      <button onclick="logout()" style="width: 100%; background: #FCEBEB; color: #A32D2D; border: 1px solid rgba(163,45,45,0.3); cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; padding: 12px; border-radius: var(--radius-md); margin-top: 10px; transition: background 0.2s;">
+        🚪 Logout
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <h4>Toko Berkah Jaya</h4>
+    <p>Melayani kebutuhan sembako, gas LPG, dan air isi ulang<br>dengan sepenuh hati sejak tahun 2010.</p>
+    <div class="footer-links">
+      <a href="../index.html">Beranda</a>
+      <a href="katalog.html">Katalog</a>
+      <a href="#" onclick="showToast('Halaman Promo'); return false;">Promo</a>
+      <a href="#" onclick="openWhatsApp(); return false;">Kontak</a>
+    </div>
+    <small>© 2025 Toko Berkah Jaya · Semua hak dilindungi</small>
+  </footer>
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <nav class="bottom-nav">
+    <a class="nav-item" href="../index.html" onclick="setActiveNav(0)">
+      <span class="nav-ico">🏠</span>Beranda
+    </a>
+    <a class="nav-item" href="katalog.html" onclick="setActiveNav(1)">
+      <span class="nav-ico">🛍️</span>Katalog
+    </a>
+    <a class="nav-item cart-nav" href="keranjang.html" onclick="setActiveNav(2)">
+      <span class="nav-ico">🛒</span>Keranjang
+      <span class="badge" id="cart-count">0</span>
+    </a>
+    <a class="nav-item" href="pesanan.html" onclick="setActiveNav(3)">
+      <span class="nav-ico">📋</span>Pesanan
+    </a>
+    <a class="nav-item active" href="profil.html" onclick="setActiveNav(4)">
+      <span class="nav-ico">👤</span>Profil
+    </a>
+  </nav>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="../assets/script.js"></script>
+  <script>
+    function editProfile() {
+      showToast('💬 Edit profil bisa dilakukan via WhatsApp dengan tim kami');
+    }
+
+    function logout() {
+      if (confirm('Apakah Anda yakin ingin logout?')) {
+        localStorage.clear();
+        showToast('Logout berhasil! Akan diarahkan ke halaman utama...');
+        setTimeout(() => {
+          window.location.href = '../index.html';
+        }, 2000);
+      }
+    }
+  </script>
+</body>
+</html>

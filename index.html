@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toko Berkah Jaya – Sembako, Gas & Air Isi Ulang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">🏪</div>
+      <div class="logo-text">
+        <h1>Toko Berkah Jaya</h1>
+        <span>● Buka sekarang · 06.00 – 21.00</span>
+      </div>
+    </div>
+    <div class="header-icons">
+      <button onclick="showToast('Notifikasi dibuka')">
+        🔔<span class="badge">3</span>
+      </button>
+      <button class="cart-nav" onclick="window.location.href='pages/keranjang.html'">
+        🛒<span class="badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== SEARCH BAR ===== -->
+  <div class="search-wrap">
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" placeholder="Cari beras, gas, galon air..." id="search-input" oninput="filterProducts()" />
+    </div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-badge">⭐ Terpercaya sejak 2010 · 1.200+ pelanggan</div>
+    <h2>Sembako, Gas &<br>Air Antar Rumah!</h2>
+    <p>Lengkap, murah, dan cepat dikirim ke pintu rumahmu.<br>Pesan sekarang, langsung diproses!</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="openWhatsApp()">
+        💬 Pesan via WhatsApp
+      </button>
+      <a href="pages/katalog.html" class="btn-outline">
+        📦 Lihat Katalog
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-lbl">Produk Tersedia</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2 km</div>
+      <div class="stat-lbl">Radius Antar</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4.9 ★</div>
+      <div class="stat-lbl">Rating Toko</div>
+    </div>
+  </div>
+
+  <!-- ===== LOKASI ===== -->
+  <div class="loc-strip">
+    <span>📍</span>
+    <div>
+      <strong>Jl. Pahlawan No. 12, RT 03/RW 05</strong>
+      <em> – Kec. Sukajaya, Kota Bogor</em>
+    </div>
+  </div>
+
+  <!-- ===== PROMO BANNER ===== -->
+  <div class="section" style="padding-bottom: 0;">
+    <div class="promo-banner">
+      <div class="promo-ico">🎉</div>
+      <div class="promo-txt">
+        <h4>Promo Minggu Ini!</h4>
+        <p>Beli gas 3kg + galon air isi ulang, gratis ongkir ke seluruh area kecamatan</p>
+        <span class="promo-badge">Berlaku s/d Minggu ini</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== KATEGORI ===== -->
+  <div class="section">
+    <div class="sec-head">
+      <h3>Kategori Produk</h3>
+      <a href="pages/katalog.html">Lihat semua →</a>
+    </div>
+    <p class="sec-sub">Semua kebutuhan rumah tangga tersedia</p>
+    <div class="cat-grid">
+      <div class="cat-card active" onclick="setCategory('all', this)">
+        <div class="cat-icon" style="background:#FAEEDA">🛒</div>
+        <div class="cat-name">Semua</div>
+        <div class="cat-count">500+ item</div>
+      </div>
+      <div class="cat-card" onclick="setCategory('sembako', this)">
+        <div class="cat-icon" style="background:#EAF3DE">🌾</div>
+        <div class="cat-name">Sembako</div>
+        <div class="cat-count">120 item</div>
+      </div>
+      <div class="cat-card" onclick="setCategory('gas', this)">
+        <div class="cat-icon" style="background:#FAECE7">🔵</div>
+        <div class="cat-name">Gas LPG</div>
+        <div class="cat-count">2 jenis</div>
+      </div>
+      <div class="cat-card" onclick="setCategory('air', this)">
+        <div class="cat-icon" style="background:#E6F1FB">💧</div>
+        <div class="cat-name">Air Isi Ulang</div>
+        <div class="cat-count">Galon & Liter</div>
+      </div>
+      <div class="cat-card" onclick="setCategory('mie', this)">
+        <div class="cat-icon" style="background:#FBEAF0">🍜</div>
+        <div class="cat-name">Mie & Snack</div>
+        <div class="cat-count">80 item</div>
+      </div>
+      <div class="cat-card" onclick="setCategory('bumbu', this)">
+        <div class="cat-icon" style="background:#EEEDFE">🧄</div>
+        <div class="cat-name">Bumbu Dapur</div>
+        <div class="cat-count">60 item</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== PRODUK ===== -->
+  <div class="section" id="produk-section">
+    <div class="sec-head">
+      <h3>Produk Unggulan</h3>
+      <a href="pages/katalog.html">Lihat semua →</a>
+    </div>
+    <p class="sec-sub" id="prod-label">Paling banyak dipesan pelanggan setia kami</p>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+      <div class="tab active" onclick="setTab('terlaris', this)">🔥 Terlaris</div>
+      <div class="tab" onclick="setTab('termurah', this)">💰 Termurah</div>
+      <div class="tab" onclick="setTab('baru', this)">✨ Terbaru</div>
+      <div class="tab" onclick="setTab('promo', this)">🏷️ Promo</div>
+      <div class="tab" onclick="setTab('stok', this)">✅ Stok Ada</div>
+    </div>
+
+    <!-- Grid Produk -->
+    <div class="prod-grid" id="prod-grid">
+
+      <div class="prod-card" data-cat="sembako" data-price="68000">
+        <div class="prod-img" style="background:#EAF3DE">
+          🌾
+          <div class="prod-tags"><span class="tag tag-promo">Promo</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Beras Premium 5kg</div>
+          <div class="prod-unit">Merek Rojo Lele / IR64</div>
+          <div class="prod-footer">
+            <div>
+              <div class="prod-price">Rp 68.000</div>
+              <div class="prod-price-old">Rp 75.000</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Beras Premium 5kg', 68000)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="sembako" data-price="34000">
+        <div class="prod-img" style="background:#FAEEDA">
+          🛢️
+          <div class="prod-tags"><span class="tag tag-panas">🔥 Laris</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Minyak Goreng 2L</div>
+          <div class="prod-unit">Bimoli / Tropical</div>
+          <div class="prod-footer">
+            <div><div class="prod-price">Rp 34.000</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Minyak Goreng 2L', 34000)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="gas" data-price="21000">
+        <div class="prod-img" style="background:#FAECE7">
+          🔵
+          <div class="prod-tags"><span class="tag tag-baru">Tersedia</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Gas LPG 3kg</div>
+          <div class="prod-unit">Bersubsidi, resmi Pertamina</div>
+          <div class="prod-footer">
+            <div><div class="prod-price">Rp 21.000</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Gas LPG 3kg', 21000)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="air" data-price="6000">
+        <div class="prod-img" style="background:#E6F1FB">
+          💧
+          <div class="prod-tags"><span class="tag tag-baru">Baru isi</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Air Galon Isi Ulang</div>
+          <div class="prod-unit">19 liter, bersih & higienis</div>
+          <div class="prod-footer">
+            <div><div class="prod-price">Rp 6.000</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Air Galon Isi Ulang', 6000)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="sembako" data-price="28000">
+        <div class="prod-img" style="background:#FFF3DC">
+          🥚
+          <div class="prod-tags"><span class="tag tag-panas">🔥 Laris</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Telur Ayam 1kg</div>
+          <div class="prod-unit">Segar, ayam kampung / ras</div>
+          <div class="prod-footer">
+            <div><div class="prod-price">Rp 28.000</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Telur Ayam 1kg', 28000)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="sembako" data-price="14000">
+        <div class="prod-img" style="background:#EEEDFE">
+          🧂
+          <div class="prod-tags"><span class="tag tag-promo">Promo</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Gula Pasir 1kg</div>
+          <div class="prod-unit">Gulaku / cap Candi</div>
+          <div class="prod-footer">
+            <div>
+              <div class="prod-price">Rp 14.000</div>
+              <div class="prod-price-old">Rp 16.500</div>
+            </div>
+            <button class="add-btn" onclick="addToCart(this, 'Gula Pasir 1kg', 14000)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="gas" data-price="185000">
+        <div class="prod-img" style="background:#FAECE7">
+          🔴
+          <div class="prod-tags"><span class="tag tag-baru">Tersedia</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Gas LPG 12kg</div>
+          <div class="prod-unit">Non-subsidi, Pertamina</div>
+          <div class="prod-footer">
+            <div><div class="prod-price">Rp 185.000</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Gas LPG 12kg', 185000)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="air" data-price="500">
+        <div class="prod-img" style="background:#E6F1FB">
+          🧴
+          <div class="prod-tags"><span class="tag tag-baru">Baru</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Air Isi Ulang 1 Liter</div>
+          <div class="prod-unit">Bawa botol sendiri, hemat</div>
+          <div class="prod-footer">
+            <div><div class="prod-price">Rp 500/liter</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Air Isi Ulang 1L', 500)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="mie" data-price="3500">
+        <div class="prod-img" style="background:#FBEAF0">
+          🍜
+          <div class="prod-tags"><span class="tag tag-panas">🔥 Laris</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Indomie Goreng</div>
+          <div class="prod-unit">Per bungkus – berbagai rasa</div>
+          <div class="prod-footer">
+            <div><div class="prod-price">Rp 3.500</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Indomie Goreng', 3500)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="bumbu" data-price="5000">
+        <div class="prod-img" style="background:#EAF3DE">
+          🌶️
+          <div class="prod-tags"><span class="tag tag-baru">Segar</span></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-name">Bumbu Racik Lengkap</div>
+          <div class="prod-unit">Paket bumbu dapur harian</div>
+          <div class="prod-footer">
+            <div><div class="prod-price">Rp 5.000</div></div>
+            <button class="add-btn" onclick="addToCart(this, 'Bumbu Racik Lengkap', 5000)">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== LAYANAN ===== -->
+  <div class="section">
+    <div class="sec-head"><h3>Layanan Kami</h3></div>
+    <p class="sec-sub">Kemudahan berbelanja kebutuhan rumah tangga</p>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-icon">🚴</div>
+        <div class="svc-title">Antar ke Rumah</div>
+        <div class="svc-desc">Gratis ongkir radius 1km. Ongkir ringan 1–2km. Gas & galon bisa COD.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">📲</div>
+        <div class="svc-title">Pesan via WA</div>
+        <div class="svc-desc">Chat langsung ke pemilik toko. Proses cepat, ramah, dan terpercaya.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">💳</div>
+        <div class="svc-title">Bayar Fleksibel</div>
+        <div class="svc-desc">Tunai, transfer bank, QRIS, dan bayar di tempat (COD) tersedia.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">💧</div>
+        <div class="svc-title">Air Isi Ulang</div>
+        <div class="svc-desc">Mesin isi ulang modern, higienis, RO filter. Galon & liter tersedia.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🔵</div>
+        <div class="svc-title">Gas Resmi</div>
+        <div class="svc-desc">Agen gas LPG 3kg & 12kg resmi Pertamina. Stok selalu tersedia.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🔁</div>
+        <div class="svc-title">Langganan Mingguan</div>
+        <div class="svc-desc">Daftar paket langganan, dikirim otomatis tiap minggu. Lebih hemat!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== TESTIMONI ===== -->
+  <div class="section">
+    <div class="sec-head">
+      <h3>Kata Pelanggan</h3>
+      <a onclick="showToast('Semua ulasan ditampilkan')">Lihat semua →</a>
+    </div>
+    <div class="testi-scroll">
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-avatar" style="background:#EAF3DE;color:#3B6D11">AS</div>
+          <div>
+            <div class="testi-name">Ani Susanti</div>
+            <div class="testi-loc">📍 Sukajaya</div>
+          </div>
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Antar cepat, harga wajar. Gas 3kg selalu ready. Udah langganan dari 2018!"</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-avatar" style="background:#E6F1FB;color:#185FA5">BR</div>
+          <div>
+            <div class="testi-name">Budi Raharjo</div>
+            <div class="testi-loc">📍 Sindangrasa</div>
+          </div>
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Galon air isi ulangnya jernih banget, gak bau. Pesan WA langsung diantar."</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-avatar" style="background:#FBEAF0;color:#993556">DN</div>
+          <div>
+            <div class="testi-name">Dewi Nuraini</div>
+            <div class="testi-loc">📍 Tanah Sareal</div>
+          </div>
+        </div>
+        <div class="testi-stars">★★★★☆</div>
+        <div class="testi-text">"Berasnya enak dan murah. Suka dengan pelayanannya yang ramah dan cepat."</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-avatar" style="background:#FAEEDA;color:#854F0B">RH</div>
+          <div>
+            <div class="testi-name">Rudi Hartono</div>
+            <div class="testi-loc">📍 Bogor Tengah</div>
+          </div>
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Beli paket langganan mingguan, hemat ongkir. Produk selalu fresh dan lengkap!"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== JAM OPERASIONAL ===== -->
+  <div class="section" style="padding-bottom: 0;">
+    <div class="sec-head"><h3>Jam Operasional</h3></div>
+  </div>
+  <div class="jam-box">
+    <div class="jam-row">
+      <span class="jam-day">Senin – Jumat</span>
+      <span class="jam-time">06.00 – 21.00 <span class="jam-open">● Buka</span></span>
+    </div>
+    <div class="jam-row">
+      <span class="jam-day">Sabtu</span>
+      <span class="jam-time">06.00 – 21.00 <span class="jam-open">● Buka</span></span>
+    </div>
+    <div class="jam-row">
+      <span class="jam-day">Minggu</span>
+      <span class="jam-time">07.00 – 20.00 <span class="jam-open">● Buka</span></span>
+    </div>
+    <div class="jam-row">
+      <span class="jam-day">Hari Libur Nasional</span>
+      <span class="jam-time">08.00 – 18.00</span>
+    </div>
+  </div>
+
+  <!-- ===== METODE PEMBAYARAN ===== -->
+  <div class="pay-section">
+    <h4>Metode Pembayaran</h4>
+    <div class="pay-grid">
+      <div class="pay-pill">💵 Tunai</div>
+      <div class="pay-pill">📱 QRIS</div>
+      <div class="pay-pill">🏦 Transfer Bank</div>
+      <div class="pay-pill">🏠 COD / Bayar di Tempat</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== KONTAK ===== -->
+  <div class="contact-section">
+    <h3>Hubungi Kami Sekarang!</h3>
+    <p>Ada pertanyaan, ingin pesan banyak, atau daftar langganan?<br>Hubungi kami langsung via WhatsApp kapan saja!</p>
+    <button class="wa-btn" onclick="openWhatsApp()">
+      💬 Chat WhatsApp Sekarang
+    </button>
+    <div class="contact-info">
+      <span>📞 0812-xxxx-xxxx (Pak Jaya)</span>
+      <span>📍 Jl. Pahlawan No. 12, RT 03/RW 05, Sukajaya, Bogor</span>
+      <span>📧 tokoberkah@email.com</span>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <h4>Toko Berkah Jaya</h4>
+    <p>Melayani kebutuhan sembako, gas LPG, dan air isi ulang<br>dengan sepenuh hati sejak tahun 2010.</p>
+    <div class="footer-links">
+      <a href="index.html">Beranda</a>
+      <a href="pages/katalog.html">Katalog</a>
+      <a href="#" onclick="showToast('Halaman Promo'); return false;">Promo</a>
+      <a href="#" onclick="openWhatsApp(); return false;">Kontak</a>
+    </div>
+    <small>© 2025 Toko Berkah Jaya · Semua hak dilindungi</small>
+  </footer>
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <nav class="bottom-nav">
+    <a class="nav-item active" href="index.html" onclick="setActiveNav(0)">
+      <span class="nav-ico">🏠</span>Beranda
+    </a>
+    <a class="nav-item" href="pages/katalog.html" onclick="setActiveNav(1)">
+      <span class="nav-ico">🛍️</span>Katalog
+    </a>
+    <a class="nav-item cart-nav" href="pages/keranjang.html" onclick="setActiveNav(2)">
+      <span class="nav-ico">🛒</span>Keranjang
+      <span class="badge" id="cart-count">0</span>
+    </a>
+    <a class="nav-item" href="pages/pesanan.html" onclick="setActiveNav(3)">
+      <span class="nav-ico">📋</span>Pesanan
+    </a>
+    <a class="nav-item" href="pages/profil.html" onclick="setActiveNav(4)">
+      <span class="nav-ico">👤</span>Profil
+    </a>
+  </nav>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="assets/script.js"></script>
+</body>
+</html>

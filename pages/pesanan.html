@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pesanan Saya – Toko Berkah Jaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">🏪</div>
+      <div class="logo-text">
+        <h1>Toko Berkah Jaya</h1>
+        <span>● Buka sekarang · 06.00 – 21.00</span>
+      </div>
+    </div>
+    <div class="header-icons">
+      <button onclick="showToast('Notifikasi dibuka')">
+        🔔<span class="badge">3</span>
+      </button>
+      <button class="cart-nav" onclick="window.location.href='keranjang.html'">
+        🛒<span class="badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="section">
+    <div class="sec-head">
+      <h3>📋 Pesanan Saya</h3>
+    </div>
+
+    <!-- ===== FILTER TABS ===== -->
+    <div class="filter-tabs">
+      <div class="tab active" onclick="filterOrders('semua', this)">Semua</div>
+      <div class="tab" onclick="filterOrders('pending', this)">⏳ Diproses</div>
+      <div class="tab" onclick="filterOrders('completed', this)">✅ Selesai</div>
+      <div class="tab" onclick="filterOrders('cancelled', this)">❌ Dibatalkan</div>
+    </div>
+
+    <div id="orders-container">
+      <!-- Pesanan ditampilkan di sini -->
+    </div>
+
+    <div id="empty-orders" class="empty-state" style="display: none;">
+      <div class="empty-state-icon">📋</div>
+      <h3>Tidak Ada Pesanan</h3>
+      <p>Anda belum pernah melakukan pesanan. Mulai belanja sekarang!</p>
+      <a href="katalog.html" class="btn-primary" style="margin-top: 16px;">
+        Lihat Katalog
+      </a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== INFORMASI BANTUAN ===== -->
+  <div class="section">
+    <h3 style="margin-bottom: 16px;">ℹ️ Informasi Pesanan</h3>
+    <div style="background: var(--blue-pale); border: 1px solid rgba(24,95,165,0.2); border-radius: var(--radius-md); padding: 14px; font-size: 12px; color: var(--text); line-height: 1.65;">
+      <p style="margin-bottom: 10px;"><strong>⏳ Status Diproses</strong><br>Pesanan Anda sedang disiapkan dan akan segera dikirim.</p>
+      <p style="margin-bottom: 10px;"><strong>🚴 Dalam Pengiriman</strong><br>Pesanan sedang dalam perjalanan menuju alamat Anda.</p>
+      <p><strong>✅ Selesai</strong><br>Pesanan telah sampai dan diterima dengan baik.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <h4>Toko Berkah Jaya</h4>
+    <p>Melayani kebutuhan sembako, gas LPG, dan air isi ulang<br>dengan sepenuh hati sejak tahun 2010.</p>
+    <div class="footer-links">
+      <a href="../index.html">Beranda</a>
+      <a href="katalog.html">Katalog</a>
+      <a href="#" onclick="showToast('Halaman Promo'); return false;">Promo</a>
+      <a href="#" onclick="openWhatsApp(); return false;">Kontak</a>
+    </div>
+    <small>© 2025 Toko Berkah Jaya · Semua hak dilindungi</small>
+  </footer>
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <nav class="bottom-nav">
+    <a class="nav-item" href="../index.html" onclick="setActiveNav(0)">
+      <span class="nav-ico">🏠</span>Beranda
+    </a>
+    <a class="nav-item" href="katalog.html" onclick="setActiveNav(1)">
+      <span class="nav-ico">🛍️</span>Katalog
+    </a>
+    <a class="nav-item cart-nav" href="keranjang.html" onclick="setActiveNav(2)">
+      <span class="nav-ico">🛒</span>Keranjang
+      <span class="badge" id="cart-count">0</span>
+    </a>
+    <a class="nav-item active" href="pesanan.html" onclick="setActiveNav(3)">
+      <span class="nav-ico">📋</span>Pesanan
+    </a>
+    <a class="nav-item" href="profil.html" onclick="setActiveNav(4)">
+      <span class="nav-ico">👤</span>Profil
+    </a>
+  </nav>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="../assets/script.js"></script>
+  <script>
+    // Sample data pesanan dari localStorage
+    let orders = JSON.parse(localStorage.getItem('orders')) || [
+      {
+        id: 'TBJ-001',
+        date: '2025-04-24',
+        status: 'completed',
+        items: ['Beras Premium 5kg', 'Minyak Goreng 2L'],
+        amount: 102000,
+        icon: '✅'
+      },
+      {
+        id: 'TBJ-002',
+        date: '2025-04-25',
+        status: 'pending',
+        items: ['Gas LPG 3kg', 'Air Galon Isi Ulang'],
+        amount: 27000,
+        icon: '⏳'
+      }
+    ];
+
+    function renderOrders(filter = 'semua') {
+      const container = document.getElementById('orders-container');
+      const emptyOrders = document.getElementById('empty-orders');
+      
+      let filtered = filter === 'semua' ? orders : orders.filter(o => o.status === filter);
+      
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        emptyOrders.style.display = 'flex';
+        return;
+      }
+
+      emptyOrders.style.display = 'none';
+      
+      let html = '';
+      filtered.forEach(order => {
+        const statusClass = `order-status ${order.status}`;
+        const statusText = order.status === 'pending' ? '⏳ Diproses' : 
+                          order.status === 'completed' ? '✅ Selesai' : '❌ Dibatalkan';
+        
+        html += `
+          <div class="order-card">
+            <div class="order-header">
+              <div>
+                <div class="order-id">${order.id}</div>
+                <div class="order-info">Tanggal: ${new Date(order.date).toLocaleDateString('id-ID')}</div>
+              </div>
+              <span class="${statusClass}">${statusText}</span>
+            </div>
+            <div class="order-info" style="margin: 10px 0;">
+              ${order.items.map(item => `<div>• ${item}</div>`).join('')}
+            </div>
+            <div class="order-amount">Total: Rp ${order.amount.toLocaleString('id-ID')}</div>
+            <button onclick="viewOrderDetail('${order.id}')" style="background: var(--amber); color: #fff; border: none; border-radius: var(--radius-sm); padding: 8px 12px; font-size: 12px; cursor: pointer; margin-top: 10px; font-weight: 600;">
+              Lihat Detail
+            </button>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function filterOrders(filter, el) {
+      document.querySelectorAll('.filter-tabs .tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      renderOrders(filter);
+    }
+
+    function viewOrderDetail(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (order) {
+        showToast(`Pesanan ${orderId} - ${order.status === 'completed' ? 'Selesai' : 'Diproses'}`);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderOrders();
+    });
+  </script>
+</body>
+</html>
