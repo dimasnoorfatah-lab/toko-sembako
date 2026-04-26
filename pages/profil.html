@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="header-icons">
-      <button onclick="showToast('Notifikasi dibuka')">
+      <button onclick="openNotifications()" style="background: none; border: none; font-size: 20px; cursor: pointer; position: relative;">
         🔔<span class="badge">3</span>
       </button>
       <button class="cart-nav" onclick="window.location.href='keranjang.html'">
@@ -35,7 +35,7 @@
     <!-- ===== PROFIL HEADER ===== -->
     <div style="background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%); border-radius: var(--radius-lg); padding: 20px; text-align: center; margin-bottom: 22px;">
       <div style="width: 60px; height: 60px; background: #fff; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: var(--shadow-sm);">👤</div>
-      <h2 style="color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 4px;">Budi Santoso</h2>
+      <h2 id="profile-name" style="color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 4px;">Budi Santoso</h2>
       <p style="color: rgba(255,255,255,0.88); font-size: 12px;">Pelanggan sejak 2023</p>
       <div style="margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.9);">
         <span style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; display: inline-block; margin: 0 4px;">⭐ 4.8 Rating</span>
@@ -50,13 +50,13 @@
         <div class="svc-card">
           <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
             <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Nama Lengkap</div>
-            <div style="font-size: 14px; font-weight: 600; color: var(--text);">Budi Santoso</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);" id="nama-lengkap">Budi Santoso</div>
           </div>
         </div>
         <div class="svc-card">
           <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
             <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Nomor HP</div>
-            <div style="font-size: 14px; font-weight: 600; color: var(--text);">0812-XXXX-XXXX</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text);">082325565813</div>
           </div>
         </div>
         <div class="svc-card">
@@ -206,14 +206,148 @@
     </a>
   </nav>
 
+  <!-- ===== NOTIFICATION MODAL ===== -->
+  <div id="notification-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 1000; animation: fadeIn 0.2s ease;">
+    <div style="position: fixed; top: 0; right: 0; width: 100%; max-width: 400px; height: 100vh; background: #fff; box-shadow: -2px 0 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; animation: slideIn 0.3s ease;">
+      <!-- Header -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: #fff; z-index: 10;">
+        <h3 style="margin: 0; font-size: 16px; font-weight: 600;">🔔 Notifikasi</h3>
+        <button onclick="closeNotifications()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted);">✕</button>
+      </div>
+      
+      <!-- Notifications List -->
+      <div id="notifications-list" style="flex: 1; overflow-y: auto; padding: 0;">
+        <!-- Notifikasi akan dimuat di sini -->
+      </div>
+      
+      <!-- Footer -->
+      <div style="padding: 12px; border-top: 1px solid var(--border); background: #f9f9f9; text-align: center;">
+        <button onclick="clearAllNotifications()" style="background: #FCEBEB; color: #A32D2D; border: 1px solid rgba(163,45,45,0.3); cursor: pointer; font-family: inherit; font-size: 12px; font-weight: 600; padding: 8px 12px; border-radius: var(--radius-sm); width: 100%;">
+          🗑️ Hapus Semua
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== TOAST ===== -->
   <div class="toast" id="toast"></div>
 
   <!-- ===== SCRIPTS ===== -->
   <script src="../assets/script.js"></script>
   <script>
+    // Notification data
+    let notifications = [
+      {
+        id: 1,
+        type: 'order',
+        title: 'Pesanan Selesai',
+        message: 'Pesanan TBJ-002 (Gas LPG 3kg + Air Galon) telah diterima.',
+        time: '2 jam lalu',
+        icon: '✅',
+        read: false
+      },
+      {
+        id: 2,
+        type: 'promo',
+        title: 'Promo Minggu Ini!',
+        message: 'Beli gas 3kg + galon air isi ulang, gratis ongkir ke seluruh area.',
+        time: '1 hari lalu',
+        icon: '🎉',
+        read: false
+      },
+      {
+        id: 3,
+        type: 'system',
+        title: 'Pembayaran Berhasil',
+        message: 'Pembayaran Rp 27.000 untuk pesanan Anda telah dikonfirmasi.',
+        time: '3 hari lalu',
+        icon: '💳',
+        read: true
+      }
+    ];
+
+    function openNotifications() {
+      const modal = document.getElementById('notification-modal');
+      modal.style.display = 'block';
+      renderNotifications();
+    }
+
+    function closeNotifications() {
+      const modal = document.getElementById('notification-modal');
+      modal.style.display = 'none';
+    }
+
+    function renderNotifications() {
+      const list = document.getElementById('notifications-list');
+      
+      if (notifications.length === 0) {
+        list.innerHTML = '<div style="padding: 40px 16px; text-align: center; color: var(--text-muted);"><div style="font-size: 32px; margin-bottom: 8px;">📭</div><div>Tidak ada notifikasi</div></div>';
+        return;
+      }
+
+      list.innerHTML = notifications.map(notif => `
+        <div onclick="markAsRead(${notif.id})" style="padding: 16px; border-bottom: 1px solid var(--border); cursor: pointer; background: ${notif.read ? '#fff' : '#f9f9f9'}; transition: background 0.2s; ${notif.read ? '' : 'border-left: 3px solid var(--amber);'}">
+          <div style="display: flex; gap: 12px;">
+            <div style="font-size: 24px;">${notif.icon}</div>
+            <div style="flex: 1;">
+              <div style="font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px;">${notif.title}</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.4;">${notif.message}</div>
+              <div style="font-size: 11px; color: var(--text-muted);">${notif.time}</div>
+            </div>
+            ${!notif.read ? '<div style="width: 8px; height: 8px; background: var(--amber); border-radius: 50%; margin-top: 2px;"></div>' : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function markAsRead(id) {
+      const notif = notifications.find(n => n.id === id);
+      if (notif) {
+        notif.read = true;
+        renderNotifications();
+      }
+    }
+
+    function clearAllNotifications() {
+      if (confirm('Hapus semua notifikasi?')) {
+        notifications = [];
+        renderNotifications();
+        showToast('✅ Semua notifikasi telah dihapus');
+        document.querySelector('.header-icons .badge').textContent = '0';
+      }
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('notification-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'notification-modal') {
+        closeNotifications();
+      }
+    });
+
+    // Add styles for animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideIn {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+      }
+    `;
+    document.head.appendChild(style);
+
     function editProfile() {
-      showToast('💬 Edit profil bisa dilakukan via WhatsApp dengan tim kami');
+      // Ambil nama dari localStorage atau gunakan nama default
+      const savedName = localStorage.getItem('userName') || 'Budi Santoso';
+      const newName = prompt('Masukkan nama Anda:', savedName);
+      if (newName && newName.trim() !== '') {
+        localStorage.setItem('userName', newName.trim());
+        document.getElementById('profile-name').textContent = newName.trim();
+        document.getElementById('nama-lengkap').textContent = newName.trim();
+        showToast('✅ Profil berhasil diperbarui!');
+      }
     }
 
     function logout() {
@@ -225,6 +359,17 @@
         }, 2000);
       }
     }
+
+    // Load user name from localStorage on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedName = localStorage.getItem('userName');
+      if (savedName) {
+        const nameEl = document.getElementById('profile-name');
+        const namaEl = document.getElementById('nama-lengkap');
+        if (nameEl) nameEl.textContent = savedName;
+        if (namaEl) namaEl.textContent = savedName;
+      }
+    });
   </script>
 </body>
 </html>
